@@ -1,0 +1,60 @@
+<odoo>
+  <template id="Report_producto">
+    <t t-call="web.html_container">
+      <t t-call="web.basic_layout">
+        <div class="header" style="border-bottom: 2px solid black">
+          <h3 class="text-center">Reporte Margen de Utilidad</h3>
+             <p style="float:center; text-align:center;" >Reporte de Productos General</p>
+                <strong style="float:center; text-align:center;">Fecha: 
+            <span  t-esc="time.strftime('%Y-%m-%d %H:%M:%S')"/>
+             </strong>
+        </div>
+          <div class="page">
+            <table class="table table-bordered table-condensed"  style="width: 100%">
+              <tr class="thead-light">
+                <th class="text-center" style="width: 40%">Producto</th>
+                <th class="text-center" style="width: 15%">Precio de venta</th>
+                <th class="text-center" style="width: 15%">Costo del producto</th>
+                <th class="text-center" style="width: 15%">Margen</th>
+                 <th class="text-center" style="width: 15%"> % del Margen</th>
+              </tr>
+              <tr t-foreach="docs" t-as="doc">
+                <td>
+                      <span t-esc="doc.name"/>
+                </td>
+                <td>
+                    <span t-esc="doc.list_price"/>
+                </td>
+                <td>
+                    <span t-esc="doc.standard_price"/>
+                </td>
+                <td>
+                    <span t-esc="doc.list_price-doc.standard_price"/>
+                </td>
+                <td>
+                   <span t-esc="'%.2f'%((doc.list_price-doc.standard_price)/(doc.list_price)*(100))"/>%
+                </td>
+              </tr>
+               <tr>
+                <td>
+                   <h4 style="float:center; text-align:center;" >Total</h4>
+                </td>
+                <td>
+                   <span t-esc="sum(line.list_price for line in docs)"/>
+                </td>
+                <td>
+                  <span t-esc="sum(line.standard_price for line in docs)"/>
+                </td>
+                <td>
+                    <span t-esc="sum(line.list_price-line.standard_price for line in docs)"/>
+                </td>
+                <td>
+                    <span t-esc="'%.2f'% sum((line.list_price-line.standard_price)/(line.list_price)*(100 )for line in docs)"/>%
+                </td>
+                </tr>
+            </table>
+          </div>
+      </t>
+    </t>
+  </template>
+</odoo>

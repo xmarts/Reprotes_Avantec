@@ -1,0 +1,38 @@
+<odoo>
+  <data>
+
+     <record id="action_wizard_reporte" model="ir.ui.view">
+      <field name="name">Reportes Avantec</field>
+      <field name="model">validation.validation</field>
+      <field name="arch" type="xml">
+      <form>
+        <header></header>
+        <sheet>
+          <group>
+            <field name="type_report"/>
+          </group>
+        </sheet>
+        <footer>
+          <button string="Buscar" type="object" name="reporte" class="btn-primary"/>
+          <button special="cancel" string="Cancelar"/>
+        </footer>
+      </form>
+      </field>
+    </record>
+
+    <record id="action_view_wizard_reporte" model="ir.actions.act_window">
+      <field name="name">Reportes Avantec</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">validation.validation</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="action_wizard_reporte"/>
+      <field name="target">new</field>
+    </record>
+   <!--MENUT DE WIZAR EN LA OPCIONDE CLIENTES-->
+    <menuitem name="Reportes Avantec" action="action_view_wizard_reporte" id="menu_usd_mxn"
+      parent="sale.sale_menu_root" sequence="99" />
+
+
+  </data>
+</odoo>

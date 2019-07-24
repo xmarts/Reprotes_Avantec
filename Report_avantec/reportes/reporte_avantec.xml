@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <report
+        string="Reporte Avantec Cliente"
+        id="action_imp_Cliente"
+        model='sale.order'
+        name="Report_avantec.Imp_Report_avantec"
+        file="Report_avantec.reporte_avanet_tem"
+        report_type="qweb-pdf"
+        print_report_name="'Reporte - %s' % object.name"
+        />
+
+    </data>
+</odoo>

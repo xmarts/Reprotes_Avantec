@@ -1,0 +1,101 @@
+<odoo>
+  <template id="Imp_Report_avantec">
+    <t t-call="web.html_container">
+      <t t-call="web.basic_layout">
+        <div class="header" style="border-bottom: 2px solid black">
+          <h3 class="text-center">Reporte Margen de Utilidad</h3>
+
+             <p style="float:center; text-align:center;" >Reporte de Clientes y Facturas</p>
+                <strong style="float:center; text-align:center;">Fecha: 
+            <span  t-esc="time.strftime('%Y-%m-%d %H:%M:%S')"/>
+             </strong>
+        </div>
+          <div class="page">
+            <table class="table table-bordered table-responsive-sm"  style="width: 100%">
+              <tr class="thead-light">
+                <th class="text-center">Cliente</th>
+                <th class="text-center">Fecha</th>
+                <th class="text-center">Factura</th>
+                <th class="text-center">Precio de venta</th>
+                <th class="text-center">Costo del producto</th>
+                <th class="text-center">Margen</th>
+                <th class="text-center"> % del Margen</th>
+               </tr>
+                <tbody class="sale_tbody">
+                  <t t-set="total" t-value="0" />
+                  <t t-set="costototal" t-value="0"/>
+                  <t t-set="margentotal" t-value="0" />
+                  <t t-set="por" t-value="0" />
+                  <t t-foreach="docs" t-as="doc">
+                      <tr>
+                        <td>
+                              <span t-esc="doc.partner_id.name"/>
+                        </td>
+                        <td>
+                            <span t-esc="doc.confirmation_date"/>
+                        </td>
+                        <td>
+                              <span t-esc="doc.invoice_ids.move_id.name"/>
+                        </td>
+                        <td> 
+                            <t t-set="p" t-value="0"/>
+                            <t t-foreach="doc.order_line" t-as="line">
+                            <t t-if="line.product_id.list_price &gt; 0">
+                            <t t-set="p" t-value="p + line.product_id.list_price*line.product_uom_qty"/>
+                            <t t-set="total" t-value="total+line.product_id.list_price*line.product_uom_qty" />
+                            </t>
+                            </t>
+                            <span t-esc="p"/>
+                        </td>
+                        <td>
+                            <t t-set="pp" t-value="0"/>
+                            <t t-foreach="doc.order_line" t-as="l">
+                            <t t-if="l.product_id.standard_price &gt; 0">
+                            <t t-set="pp" t-value="pp + l.product_id.standard_price*l.product_uom_qty"/>
+                            <t t-set="costototal" t-value="costototal+l.product_id.standard_price*l.product_uom_qty" />
+                            </t>
+                            </t>
+                            <span t-esc="pp"/>
+                        </td>
+                        <td>
+                            <t t-set="ppp" t-value="0"/>
+                            <t t-set="ll" t-value="0"/>
+                            <t t-foreach="doc.order_line" t-as="l">
+                               <t t-set="ppp" t-value="ppp + l.product_id.list_price *l.product_uom_qty"/>
+                               <t t-set="ppp" t-value="ppp - l.product_id.standard_price*l.product_uom_qty"/>
+                               <t t-set="margentotal" t-value="margentotal+float(l.product_id.list_price *l.product_uom_qty)-float( l.product_id.standard_price*l.product_uom_qty)"/>
+        
+                               </t>
+                            <span t-esc="float(ppp- ll)"/>
+                        </td>
+                        <td>
+                           <span t-esc="'%.2f'%((p-pp)/(p)*(100))"/>%
+                        </td>
+                      </tr>
+                  </t>
+                  <tr>
+                      <td colspan="3" >
+                            <h4 style="float:center; text-align:center;" >Total</h4>
+                      </td>
+                      <td>
+                          <t t-esc="total" />
+                      </td>
+                      <td>
+                          <t t-esc="costototal"/>
+                      </td>
+                      <td>
+                          <t t-esc="margentotal"/>
+                      </td>
+                      <td>
+                          <t t-set="por" t-value="float(total-costototal)/(total)*(100)"/>
+                          <t t-esc="'%.2f'%por"/>%
+                      </td>
+                  </tr>
+                  
+              </tbody>
+            </table>
+          </div>
+      </t>
+    </t>
+  </template>
+</odoo>

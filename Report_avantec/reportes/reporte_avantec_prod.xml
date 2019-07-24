@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <report
+        string="Reporte Avantec Productos"
+        id="action_imp_tickets"
+        model='product.template'
+        name="Report_avantec.Report_producto"
+        file="Report_avantec.reporte_avanet_prod_tem"
+        report_type="qweb-pdf"
+        print_report_name="'Reporte - %s' % object.name"
+        />
+    </data>
+</odoo>
