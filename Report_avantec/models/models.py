@@ -69,7 +69,7 @@ class validation(models.Model):
                     }
                 return action
             elif self.type_report =='gasto':
-                dom = [('categ_id','=','Gastos de envio')]
+                dom = [('categ_id.property_cost_method', '=', 'fifo')]
                 title_sel = ' por productos con gatos de envio' 
 
                 tree_view_id = self.env.ref('stock_account.view_stock_product_tree2').id
