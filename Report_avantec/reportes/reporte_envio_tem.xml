@@ -28,13 +28,13 @@
                                 <span t-esc="doc.name"/>
                             </td>
                             <td>
-                                <span t-esc="doc.list_price"/>
+                                <span t-esc="'%.2f'%(doc.list_price)"/>
                             </td>
                             <td>
-                                <span t-esc="doc.stock_value"/>
+                                <span t-esc="'%.2f'%(doc.stock_value)"/>
                             </td>
                             <td>
-                                <span t-esc="doc.list_price-doc.stock_value"/>
+                                <span t-esc="'%.2f'%(doc.list_price-doc.stock_value)"/>
                             </td>
                             <td>
                                 <span t-esc="'%.2f'%((doc.list_price-doc.stock_value)/(doc.list_price)*(100)) "/>%
@@ -46,13 +46,13 @@
                                 <h4 style="float:center; text-align:center;" >Total</h4>
                             </td>
                             <td>
-                               <span t-esc="sum(line.list_price for line in docs)"/>
+                               <span t-esc="'%.2f'% sum(line.list_price for line in docs)"/>
                             </td>
                             <td>
-                              <span t-esc="sum(line.stock_value for line in docs)"/>
+                              <span t-esc="'%.2f'% sum(line.stock_value for line in docs)"/>
                             </td>
                             <td>
-                                <span t-esc="sum(line.list_price-line.stock_value for line in docs)"/>
+                                <span t-esc="'%.2f'% sum(line.list_price-line.stock_value for line in docs)"/>
                             </td>
                             <td>
                                 <span t-esc="'%.2f'% sum((line.list_price-line.stock_value)/(line.list_price)*(100 )for line in docs)"/>%

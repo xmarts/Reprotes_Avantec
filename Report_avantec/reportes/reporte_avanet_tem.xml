@@ -45,7 +45,7 @@
                             <t t-set="total" t-value="total+line.product_id.list_price*line.product_uom_qty" />
                             </t>
                             </t>
-                            <span t-esc="p"/>
+                            <span t-esc="'%.2f'%(p)"/>
                         </td>
                         <td>
                             <t t-set="pp" t-value="0"/>
@@ -55,7 +55,7 @@
                             <t t-set="costototal" t-value="costototal+l.product_id.standard_price*l.product_uom_qty" />
                             </t>
                             </t>
-                            <span t-esc="pp"/>
+                            <span t-esc="'%.2f'%(pp)"/>
                         </td>
                         <td>
                             <t t-set="ppp" t-value="0"/>
@@ -66,7 +66,7 @@
                                <t t-set="margentotal" t-value="margentotal+float(l.product_id.list_price *l.product_uom_qty)-float( l.product_id.standard_price*l.product_uom_qty)"/>
         
                                </t>
-                            <span t-esc="float(ppp- ll)"/>
+                            <span t-esc="'%.2f'% float(ppp- ll)"/>
                         </td>
                         <td>
                            <span t-esc="'%.2f'%((p-pp)/(p)*(100))"/>%
@@ -78,17 +78,17 @@
                             <h4 style="float:center; text-align:center;" >Total</h4>
                       </td>
                       <td>
-                          <t t-esc="total" />
+                          <t t-esc="'%.2f'%(total)" />
                       </td>
                       <td>
-                          <t t-esc="costototal"/>
+                          <t t-esc="'%.2f'%(costototal)"/>
                       </td>
                       <td>
-                          <t t-esc="margentotal"/>
+                          <t t-esc="'%.2f'%(margentotal)"/>
                       </td>
                       <td>
                           <t t-set="por" t-value="float(total-costototal)/(total)*(100)"/>
-                          <t t-esc="'%.2f'%por"/>%
+                          <t t-esc="'%.2f'%(por)"/>%
                       </td>
                   </tr>
                   
